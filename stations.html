@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Intermediate Stations</title>
+    <script>
+        function getIntermediateStations() {
+            // Get the input values
+            var station1 = document.getElementById("station1").value;
+            var station2 = document.getElementById("station2").value;
+
+            // Validate input
+            if (station1 === "" || station2 === "") {
+                alert("Please enter both stations.");
+                return;
+            }
+
+            // Find intermediate stations
+            var stations = ["Station1", "Station2", "Station3", "Station4", "Station5", "Station6", "Station7", "Station8", "Station9", "Station10"];
+            var startIndex = stations.indexOf(station1);
+            var endIndex = stations.indexOf(station2);
+
+            // Display intermediate stations
+            if (startIndex === -1 || endIndex === -1) {
+                alert("Invalid station names. Please enter valid station names.");
+            } else if (startIndex >= endIndex) {
+                alert("The second station should be ahead of the first station.");
+            } else {
+                var intermediateStations = stations.slice(startIndex + 1, endIndex);
+                document.getElementById("result").textContent = intermediateStations.join(", ");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Intermediate Stations Finder</h1>
+    <label for="station1">Station 1:</label>
+    <input type="text" id="station1">
+    <br>
+    <label for="station2">Station 2:</label>
+    <input type="text" id="station2">
+    <br>
+    <button onclick="getIntermediateStations()">Find Intermediate Stations</button>
+    <br>
+    <div id="result"></div>
+</body>
+</html>
+

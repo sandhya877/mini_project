@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+        table, th, td {
+          border:1px solid black;
+        }
+    </style>
+    <title>Retrieve Records by Name</title>
+    <script>
+        function searchByName() {
+            // Get the search query
+            var searchValue = document.getElementById("searchInput").value.toLowerCase();
+
+            // Get all rows in the table
+            var table = document.getElementById("participantTable");
+            var rows = table.getElementsByTagName("tr");
+
+            // Iterate through each row and hide/show based on the name value
+            for (var i = 1; i < rows.length; i++) {
+                var name = rows[i].getElementsByTagName("td")[0].textContent.toLowerCase();
+                if (name.indexOf(searchValue) > -1) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Retrieve Records by Name</h1>
+    <input type="text" id="searchInput" placeholder="Enter Name" oninput="searchByName()">
+    <br>
+    <br>
+    <table id="participantTable" style="width: 100%">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Phone Number</th>
+        </tr>
+        {% for participant in data %}
+        <tr>
+            <td>{{ participant[0] }}</td>
+            <td>{{ participant[1] }}</td>
+            <td>{{ participant[2] }}</td>
+            <td>{{ participant[3] }}</td>
+            <td>{{ participant[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

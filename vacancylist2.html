@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+    <title>Retrieve Records by Source and Destination</title>
+    <script>
+        function filterBySourceAndDestination1() {
+            var source = document.getElementById("sourceInput").value.toLowerCase();
+            var destination = document.getElementById("destinationInput").value.toLowerCase();
+            var table = document.getElementById("participantTable");
+            var rows = table.getElementsByTagName("tr");
+
+            for (var i = 1; i < rows.length; i++) {
+                var sourceCell = rows[i].getElementsByTagName("td")[0].textContent.toLowerCase();
+                var destinationCell = rows[i].getElementsByTagName("td")[1].textContent.toLowerCase();
+                var display = false;
+
+                if (source && destination) {
+                    if (sourceCell === source && destinationCell === destination) {
+                        display = true;
+                    }
+                else if (sourceCell === source || destinationCell === destination) {
+                    display = true;
+                }
+                else if (sourceCell === destination && destinationCell === source) {
+                    display = true;
+                }
+                }
+                if (display) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+            var displayedRows = Array.from(rows).slice(1).filter(row => row.style.display !== "none");
+            if (displayedRows.length === 1) {
+                table.style.display = "table";
+            } else {
+                table.style.display = "none";
+            }
+
+        }
+        
+    </script>
+</head>
+<body>
+    <h1>Retrieve Records by Source and Destination</h1>
+    <label for="sourceInput">Source:</label>
+    <input type="text" id="sourceInput">
+    <br>
+    <label for="destinationInput">Destination:</label>
+    <input type="text" id="destinationInput">
+    <br>
+    <button onclick="filterBySourceAndDestination1()">Search1</button>
+    <br>
+    <br>
+
+    <h1>Retrieve Records by Name</h1>
+    <br>
+    <br>
+    <table id="participantTable" style="width: 100%">
+        <tr>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Coach</th>
+            <th>Berth</th>
+            <th>Phone Number</th>
+        </tr>
+        {% for vacancy in data %}
+        <tr>
+            <td>{{ vacancy[0] }}</td>
+            <td>{{ vacancy[1] }}</td>
+            <td>{{ vacancy[2] }}</td>
+            <td>{{ vacancy[3] }}</td>
+            <td>{{ vacancy[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
